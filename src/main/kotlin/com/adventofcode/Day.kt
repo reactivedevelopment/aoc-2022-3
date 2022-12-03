@@ -3,7 +3,6 @@ package com.adventofcode
 import com.adventofcode.Counter.prioritySum
 import com.adventofcode.Counter.process
 
-
 private const val ORDER = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 fun priorityOf(x: Char) = ORDER.indexOf(x) + 1
@@ -14,8 +13,8 @@ object Counter {
 
   var prioritySum = 0L; private set
 
-  fun process(elf: Set<Int>) {
-    buf.add(elf)
+  fun process(line: String) {
+    line.map(::priorityOf).toSet().let(buf::add)
     if (buf.size < 3) {
       return
     }
@@ -24,19 +23,7 @@ object Counter {
   }
 }
 
-fun process(line: String) {
-  val elf = line.map(::priorityOf).toSet()
-  process(elf)
-}
-
-fun solution(): Long {
-  return prioritySum
-}
-
 fun main() {
-  ::main.javaClass
-    .getResourceAsStream("/input")!!
-    .bufferedReader()
-    .forEachLine(::process)
-  println(solution())
+  ::main.javaClass.getResourceAsStream("/input")!!.bufferedReader().forEachLine(::process)
+  println(prioritySum)
 }
